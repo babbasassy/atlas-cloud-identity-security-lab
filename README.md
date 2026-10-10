@@ -1,121 +1,117 @@
 # ATLAS Cloud Identity Security Lab
 
-**Microsoft Entra ID | Identity & Access Management | Security Monitoring | User Lifecycle Management**
+**Microsoft Entra ID Free · Identity and access management · Sign-in analysis · User offboarding**
 
-## Project Overview
+A hands-on identity administration lab for a small organization with IT, HR, and Finance departments. The project documents user and group administration, a separate administrative identity, analysis of a successful sign-in, and an employee offboarding exercise.
 
-This project demonstrates the configuration and management of a cloud identity environment using Microsoft Entra ID Free.
+The repository presents the lab's recorded results and their evidence. It is a portfolio case study, not a production security baseline or an automated deployment.
 
-The lab simulates a small organization with separate IT, HR, and Finance departments. It focuses on identity administration, user access management, security configuration, authentication monitoring, and employee offboarding.
+## Lab at a glance
 
-The objective was to gain hands-on experience with identity and access management (IAM) and understand how cloud identities can be managed and secured in an enterprise environment.
+| Component | Recorded configuration |
+| --- | --- |
+| Tenant | ATLAS Cloud Lab |
+| License | Microsoft Entra ID Free |
+| Users | 5 identities: three department test users, a dedicated administrator, and the tenant owner |
+| Groups | 3: GRP-IT, GRP-HR, and GRP-FINANCE |
+| Dedicated administrator | ATLAS Cloud Admin, assigned Global Administrator according to the lab record |
+| Sign-in evidence | Alice IT: Success; Single-factor authentication; 2 October 2026 |
+| Offboarding evidence | Sara HR: account disabled; session revocation recorded on 2 October 2026 |
+| Management interface | Microsoft Azure portal |
 
-## Technologies Used
+Counts describe the captured lab state, not a live tenant inventory. Department users are test identities; the user list also contains the tenant owner's account.
 
-- Microsoft Entra ID Free
-- Microsoft Azure Portal
-- Identity and Access Management (IAM)
-- Role-Based Access Control (RBAC) concepts
-- Microsoft Entra Security Defaults
-- Authentication and sign-in logs
-- User and group administration
+## What the project demonstrates
 
-## Lab Environment
+- **Identity administration:** organizing cloud identities and three departmental security groups.
+- **Administrative separation:** maintaining a dedicated ATLAS Cloud Admin account. The Global Administrator assignment demonstrates role administration, not least-privilege hardening.
+- **Sign-in analysis:** reading the result, timestamp, user, and authentication requirement of a recorded event.
+- **Offboarding:** disabling Sara HR, recording session revocation, and removing group membership as confirmed by the lab owner.
+- **Evidence-based reporting:** distinguishing visible results from owner-confirmed actions and unverified settings.
 
-The environment was created in a dedicated Microsoft Entra tenant named **ATLAS Cloud Lab**.
+## Results and evidence
 
-Three departments were established with corresponding test identities and security groups.
+| Result | Evidence | Qualification |
+| --- | --- | --- |
+| Entra ID Free tenant with 5 users and 3 groups | [Tenant overview](screenshots/01-tenant-overview.png) | Snapshot of the lab |
+| Department users and dedicated administrator exist | [User directory](screenshots/02-users.png) | Includes the tenant owner |
+| Three departmental groups exist | [Group directory](screenshots/03-groups.png) | Individual membership is not visible |
+| Global Administrator role assignment | [Role view](screenshots/04-admin-role.png) | The crop shows the role; attribution to ATLAS Cloud Admin is confirmed by the lab owner |
+| Alice IT successfully signed in | [Sign-in details](screenshots/05-alice-signin-success.png) | Single-factor requirement; does not demonstrate completed MFA |
+| Sara HR is disabled | [Offboarding state](screenshots/06-sara-offboarding.png) | Account enabled: No |
+| Sara's sessions were revoked on 2 October 2026 | [Offboarding state](screenshots/06-sara-offboarding.png) | Owner-confirmed action; the image shows the sessions-valid-from timestamp, not an audit event |
+| Sara's group membership was removed | [Offboarding record](docs/offboarding.md) | Owner-confirmed; no membership screenshot is available |
 
-| Department | Test User | Security Group |
-|---|---|---|
-| IT | Alice IT | GRP-IT |
-| HR | Sara HR | GRP-HR |
-| Finance | Omar Finance | GRP-FINANCE |
+## Documentation
 
-A separate administrator account, **ATLAS Cloud Admin**, was also created for privileged administration.
+| Document | Contents |
+| --- | --- |
+| [Architecture](docs/architecture.md) | Environment, identity layout, administrative boundary, and scope |
+| [Identity management](docs/identity-management.md) | Users, groups, role assignment, and evidence limits |
+| [Security controls](docs/security-controls.md) | Recorded controls, unverified settings, and licensing boundaries |
+| [Sign-in monitoring](docs/sign-in-monitoring.md) | Alice's event, interpretation, and review procedure |
+| [Offboarding](docs/offboarding.md) | Sara's recorded actions, results, and validation limits |
+| [Evidence review](docs/evidence-review.md) | Screenshot inventory, publication review, and remaining evidence gaps |
 
-All identities are fictional and used exclusively for demonstration and testing.
+## Screenshot gallery
 
-## Implemented Features
+### Tenant overview
 
-### 1. Identity and Group Management
+![ATLAS Cloud Lab overview showing Microsoft Entra ID Free, 5 users, and 3 groups](screenshots/01-tenant-overview.png)
 
-Created cloud users and organized them into department-specific security groups.
+### User directory
 
-This demonstrates the foundation of group-based access management and identity administration.
+![Five identities including Alice IT, Sara HR, Omar Finance, ATLAS Cloud Admin, and the tenant owner](screenshots/02-users.png)
 
-### 2. Administrative Role Management
+### Department groups
 
-Created a dedicated administrator identity and assigned the Global Administrator role.
+![Group directory showing GRP-FINANCE, GRP-HR, and GRP-IT](screenshots/03-groups.png)
 
-The purpose was to separate ordinary test identities from privileged administrative access.
+### Administrative role
 
-The Global Administrator role was used within the isolated lab; a production environment should apply least-privilege administration.
+![Role assignment view showing a direct built-in Global Administrator assignment](screenshots/04-admin-role.png)
 
-### 3. Security Configuration
+The original crop does not include the account heading.
 
-Reviewed Microsoft Entra ID Security Defaults as a baseline identity security control, including its role in multifactor authentication and authentication protection.
+### Alice's successful sign-in
 
-Security Defaults and Conditional Access are different capabilities. Custom Conditional Access policies were not implemented in this Entra ID Free lab.
+![Alice IT sign-in with Success status and Single-factor authentication requirement](screenshots/05-alice-signin-success.png)
 
-### 4. Authentication Monitoring
+### Sara's offboarding state
 
-Performed authentication tests and inspected Microsoft Entra sign-in logs.
+![Sara HR properties showing Account enabled set to No and a sessions-valid-from timestamp on 2 October 2026](screenshots/06-sara-offboarding.png)
 
-The investigation included:
+## Security scope and limitations
 
-- Successful user authentication
-- Sign-in status and timestamps
-- Application information
-- Authentication requirements
-- Interrupted sign-in events
-- Password-related authentication issues
+**MFA completion has not been demonstrated.** Alice's recorded event has a single-factor authentication requirement. The tenant's Security Defaults setting is **unverified**; the license and this event alone do not establish whether it is enabled or disabled.
 
-**Important observation:** A successful Alice IT sign-in was recorded with a single-factor authentication requirement. This event demonstrates sign-in logging but does not establish that MFA was completed during that specific sign-in.
+Custom Conditional Access policies and paid Azure security services were not implemented as part of this lab. Group creation does not demonstrate application authorization. Session revocation does not, by itself, prove that every application session ended immediately.
 
-### 5. User Offboarding
+The six published screenshots were visually reviewed on 10 October 2026. No visible passwords, access tokens, client secrets, private keys, or MFA recovery codes were found. The images retain account names, directory identifiers, and the tenant domain; they are not anonymized. See the [evidence review](docs/evidence-review.md) for the exact scope.
 
-Simulated the departure of an employee using the Sara HR test account.
+## Repository layout
 
-The offboarding workflow covered:
+~~~text
+.
+├── README.md
+├── docs/
+│   ├── architecture.md
+│   ├── identity-management.md
+│   ├── security-controls.md
+│   ├── sign-in-monitoring.md
+│   ├── offboarding.md
+│   └── evidence-review.md
+└── screenshots/
+    ├── 01-tenant-overview.png
+    ├── 02-users.png
+    ├── 03-groups.png
+    ├── 04-admin-role.png
+    ├── 05-alice-signin-success.png
+    └── 06-sara-offboarding.png
+~~~
 
-1. Disabling the user account
-2. Removing department group membership
-3. Revoking existing sign-in sessions
+## Lessons learned and next steps
 
-This demonstrates essential identity lifecycle procedures used when employees leave an organization.
+The exercise shows how identity inventory, role assignment, authentication evidence, and offboarding fit together. A successful login is not proof of MFA, and a configured control is not proof of its end-to-end effect.
 
-## Evidence and Screenshots
-
-### Tenant Overview
-
-![Tenant Overview](screenshots/01-tenant-overview.png)
-
-### User Management
-
-![User Management](screenshots/02-users.png)
-
-### Security Groups
-
-![Security Groups](screenshots/03-groups.png)
-
-### Administrator Role
-
-![Administrator Role](screenshots/04-admin-role.png)
-
-### Sign-in Monitoring
-
-![Successful Sign-in](screenshots/05-alice-signin-success.png)
-
-### Employee Offboarding
-
-![Employee Offboarding](screenshots/06-sara-offboarding.png)
-
-## Security Considerations
-
-This lab was designed as a controlled learning environment.
-
-- No production identities were used.
-- Test account passwords and authentication secrets must not be published.
-- Administrative access was separated from standard test accounts.
-- Authentication logs were reviewed to understand identity
+Future validation can strengthen the case study by capturing the Security Defaults setting, a completed MFA event, the administrator's identity alongside its assigned role, Sara's final group membership, and a blocked sign-in after offboarding. These are future evidence improvements, not completed lab results.

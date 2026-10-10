@@ -1,151 +1,73 @@
-ATLAS Cloud Identity Security Lab – Architecture
+# Lab architecture
 
-1. Overview
+[Back to project overview](../README.md)
 
-ATLAS Cloud Lab is a simulated cloud identity environment built using Microsoft Entra ID Free.
+## Environment
 
-The environment represents a small organization with three departments: IT, HR, and Finance.
+ATLAS Cloud Lab models a small organization's cloud identities in Microsoft Entra ID. The published tenant overview records the following state.
 
-The lab focuses on identity administration, group-based access management, authentication monitoring, privileged administration, and employee offboarding.
+| Component | Observed value |
+| --- | --- |
+| Tenant name | ATLAS Cloud Lab |
+| License | Microsoft Entra ID Free |
+| Users | 5 |
+| Groups | 3 |
+| Applications shown in overview | 0 |
+| Devices shown in overview | 0 |
+| Administration interface | Microsoft Azure portal |
 
-2. Environment
+![Tenant overview with license and inventory counts](../screenshots/01-tenant-overview.png)
 
-Component
+These are screenshot values. They do not establish the current tenant state or the absence of every possible service principal or external integration.
 
-Configuration
+## Identity layout
 
-Identity provider
+| Identity | Lab purpose | Department group in the lab design |
+| --- | --- | --- |
+| Alice IT | IT test identity and sign-in analysis | GRP-IT |
+| Sara HR | HR test identity and offboarding exercise | GRP-HR before offboarding |
+| Omar Finance | Finance test identity | GRP-FINANCE |
+| ATLAS Cloud Admin | Dedicated privileged administration | Not established by the screenshots |
+| Tenant owner | Initial tenant administration | Not established by the screenshots |
 
-Microsoft Entra ID
+The user directory proves that the five identities exist in the captured state. The group directory proves that the three named groups exist. Their individual membership lists are not included in the published evidence.
 
-Tenant name
+~~~text
+ATLAS Cloud Lab — Microsoft Entra ID Free
+│
+├── Administration
+│   ├── Tenant owner
+│   └── ATLAS Cloud Admin
+│       └── Global Administrator (owner-confirmed account attribution)
+│
+├── Department test identities
+│   ├── Alice IT       → intended department: GRP-IT
+│   ├── Sara HR        → intended department: GRP-HR
+│   └── Omar Finance   → intended department: GRP-FINANCE
+│
+└── Recorded exercises
+    ├── Alice: successful sign-in, single-factor requirement
+    └── Sara: disabled, sessions revoked, membership removal confirmed
+~~~
 
-ATLAS Cloud Lab
+The department arrows describe the lab design; they are not an independently verified membership export.
 
-License
+## Administrative boundary
 
-Microsoft Entra ID Free
+A separate ATLAS Cloud Admin identity was used for privileged administration. The lab owner confirms its Global Administrator assignment. The role screenshot shows a direct, built-in Global Administrator assignment but crops out the account heading.
 
-Cloud users
+This demonstrates separation of administrative and department identities. It does not demonstrate least privilege, privileged identity management, time-limited elevation, or a review of every account's roles.
 
-5
+## Lifecycle and observation
 
-Security groups
+The recorded workflow covers identity creation, departmental organization, sign-in review, and offboarding. Alice's event is the authentication evidence. Sara's disabled account and sessions-valid-from timestamp support the offboarding record.
 
-3
+No application access enforcement, hybrid directory synchronization, custom Conditional Access, or paid security integration is claimed. Security Defaults status and completed MFA remain unverified.
 
-Administrative role
+## Related documentation
 
-Global Administrator
-
-Management interface
-
-Microsoft Azure Portal
-
-No production systems or paid Azure infrastructure resources were required for this lab.
-
-3. Identity Structure
-
-The following test identities were created:
-
-Account
-
-Purpose
-
-Alice IT
-
-IT department user
-
-Sara HR
-
-HR department user and offboarding test
-
-Omar Finance
-
-Finance department user
-
-ATLAS Cloud Admin
-
-Dedicated administrative account
-
-Tenant owner
-
-Initial tenant administrator
-
-Three department-specific security groups were also configured:
-
-GRP-IT
-
-GRP-HR
-
-GRP-FINANCE
-
-These groups demonstrate how organizations can organize identities and manage access based on departmental responsibilities.
-
-4. Administrative Architecture
-
-A dedicated administrator account was created and assigned the Global Administrator role.
-
-This separates privileged administration from ordinary test user accounts.
-
-The Global Administrator role provides extensive directory management permissions. In a production environment, more restricted administrative roles should be preferred wherever possible.
-
-5. Authentication and Monitoring
-
-Microsoft Entra ID provides authentication services for cloud identities.
-
-Sign-in logs were used to examine:
-
-Authentication outcomes
-
-Successful and interrupted sign-ins
-
-Authentication requirements
-
-Sign-in timestamps
-
-Application information
-
-Password-related authentication problems
-
-A successful Alice IT sign-in was recorded, demonstrating the availability of identity authentication logs.
-
-6. Identity Lifecycle
-
-The environment was used to simulate basic employee identity lifecycle operations:
-
-Provisioning: Creating a user account.
-
-Access assignment: Adding a user to an appropriate department group.
-
-Monitoring: Reviewing authentication events.
-
-Offboarding: Disabling a user account, removing group membership, and revoking sign-in sessions.
-
-Sara HR was selected as the offboarding test identity.
-
-7. Security Design Considerations
-
-Department-specific security groups
-
-Separate administrative identity
-
-Authentication monitoring
-
-Account disabling during offboarding
-
-Group membership removal
-
-Session revocation
-
-No production user credentials
-
-No exposed authentication secrets
-
-This architecture is intended for security education and portfolio demonstration rather than production deployment.
-
-8. Conclusion
-
-The ATLAS Cloud Identity Security Lab demonstrates the foundational architecture of a cloud-based identity management environment.
-
-The lab provides practical experience with Microsoft Entra ID, privileged administration, authentication logging, and secure user lifecycle operations.
+- [Identity management](identity-management.md)
+- [Security controls](security-controls.md)
+- [Sign-in monitoring](sign-in-monitoring.md)
+- [Offboarding](offboarding.md)
+- [Evidence review](evidence-review.md)
